@@ -10,7 +10,10 @@ export function Sidebar(props) {
                 }`}
                 onClick={() => props.setCurrentNoteId(note.id)}
             >
-                <h4 className="text-snippet">Note {index + 1}</h4>
+                <h4 className="text-snippet">
+                    {/* split the note body into an array of strings, then get the first element of the array */}
+                    {note.body.split("\n")[0]}
+                </h4>
             </div>
         </div>
     ))
