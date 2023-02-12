@@ -4,17 +4,27 @@ import {Editor} from "./Components/Editor"
 import {data} from "./data"
 // data = [ {id: '1', body: `a`}]
 import Split from "react-split"
-// used to split the screen into two panes (see App)
+// used to split the screen into two panes (see App) and to resize them (see index.css)
 import {nanoid} from "nanoid"
 // used to generate unique ids for notes (see createNewNote)
 
 import "./index.css"
 
 export default function App() {
-    const [notes, setNotes] = React.useState([])
+    // get notes from local storage or use the data array if there are no notes in local storage
+    const [notes, setNotes] = React.useState(
+      JSON.parse(localStorage.getItem("notes")) || []
+    )
+
+    // used to set the current note id (see Sidebar)
     const [currentNoteId, setCurrentNoteId] = React.useState(
         (notes[0] && notes[0].id) || ""
     )
+
+    // used to set notes to local storage
+    React.useEffect(() => {
+      localStorage.setItem("notes", JSON.stringify(notes))
+    }, [notes])
     
     // used to create a new instance of a note (with a unique id) and add it to the notes array 
     function createNewNote() {
@@ -43,42 +53,55 @@ export default function App() {
     }
     
     return (
-        <main>
-        {
-            notes.length > 0 
-            ?
-            <Split 
-                sizes={[30, 70]} 
-                direction="horizontal" 
-                className="split"
-            >
-                <Sidebar
-                    notes={notes}
-                    currentNote={findCurrentNote()}
-                    setCurrentNoteId={setCurrentNoteId}
-                    newNote={createNewNote}
-                />
-                {
-                    currentNoteId && 
-                    notes.length > 0 &&
-                    <Editor 
-                        currentNote={findCurrentNote()} 
-                        updateNote={updateNote} 
-                    />
-                }
-            </Split>
-            :
-            <div className="no-notes">
-                <h1>You have no notes</h1>
-                <button 
-                    className="first-note" 
-                    onClick={createNewNote}
-                >
-                    Create one now
-                </button>
-            </div>
-            
-        }
-        </main>
-    )
+      <main>
+      {
+          notes.length > 0 
+          ?
+          <Split 
+              sizes={[30, 70]} 
+              direction="horizontal" 
+              className="split"
+          >
+              <Sidebar
+                  notes={notes}
+                  currentNote={findCurrentNote()}
+                  setCurrentNoteId={setCurrentNoteId}
+                  newNote={createNewNote}
+              />
+              {
+                  currentNoteId && 
+                  notes.length > 0 &&
+                  <Editor 
+                      currentNote={findCurrentNote()} 
+                      updateNote={updateNote} 
+                  />
+              }
+          </Split>
+          :
+          <div className="no-notes">
+              <h1>You have no notes</h1>
+              <button 
+                  className="first-note" 
+                  onClick={createNewNote}
+              >
+                  Create one now
+              </button>
+          </div>
+          
+      }
+      </main>
+  )
 }
+
+
+/**
+ * Features:
+ * - create a new note
+ * - edit a note
+ * - delete a note
+ * - save notes to local storage
+ * - load notes from local storage
+ * - add a new note to the top of the notes list
+ * - add note summary titles
+ * - move modified notes to the top of the notes list
+ */

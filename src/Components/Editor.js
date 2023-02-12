@@ -1,6 +1,6 @@
 import React from "react"
-import ReactMde from "react-mde"
-import Showdown from "showdown"
+import ReactMde from "react-mde" // used to edit markdown
+import Showdown from "showdown" // used to convert markdown to html
 import "../index.css"
 
 export function Editor({ currentNote, updateNote }) {
@@ -12,6 +12,8 @@ export function Editor({ currentNote, updateNote }) {
         strikethrough: true,
         tasklists: true,
     })  
+
+    /** ReactMde is a react component that allows to edit markdown, it has a toolbar with buttons to add markdown syntax, it also has a preview tab that shows the markdown rendered as html */
 
     return (
         <section className="pane editor">
