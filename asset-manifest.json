@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/markdown-editor/static/css/main.05a3d234.css",
+    "main.js": "/markdown-editor/static/js/main.f8bb04e5.js",
+    "index.html": "/markdown-editor/index.html",
+    "main.05a3d234.css.map": "/markdown-editor/static/css/main.05a3d234.css.map",
+    "main.f8bb04e5.js.map": "/markdown-editor/static/js/main.f8bb04e5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.05a3d234.css",
+    "static/js/main.f8bb04e5.js"
+  ]
+}
